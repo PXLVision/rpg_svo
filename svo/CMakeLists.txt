@@ -94,13 +94,13 @@ LIST(APPEND SOURCEFILES
 IF(HAVE_G2O)
   FIND_PACKAGE(G2O REQUIRED)
   INCLUDE_DIRECTORIES(
-    ${G2O_ROOT}/include
+    ${G2O_INCLUDE_DIR}
     /usr/include/suitesparse # for cholmod
-  )
+    )
   LIST(APPEND LINK_LIBS
-    g2o_core g2o_stuff g2o_solver_cholmod g2o_solver_csparse g2o_solver_dense
-    g2o_solver_pcg g2o_types_sba cholmod cxsparse
-  )
+    ${G2O_CORE_LIBRARY} ${G2O_STUFF_LIBRARY} ${G2O_SOLVER_CHOLMOD} ${G2O_SOLVER_CSPARSE} ${G2O_SOLVER_DENSE}
+    ${G2O_SOLVER_PCG} ${G2O_TYPES_SBA} cholmod cxsparse
+    )
   LIST(APPEND SOURCEFILES src/bundle_adjustment.cpp)
 ENDIF(HAVE_G2O)
 

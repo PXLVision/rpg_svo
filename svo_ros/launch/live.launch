@@ -16,10 +16,8 @@
         <param name="publish_every_nth_dense_input" value="5" />
     </node>
     
-    <!--
-    <node pkg="image_view" type="image_view" name="image_svo">
-        <remap from="image" to="/svo/image" />
-    </node>
-    -->
+    <!-- <node pkg="image_view" type="image_view" name="image_svo"> -->
+    <!--     <remap from="image" to="/svo/image" /> -->
+    <!-- </node> -->
     
 </launch>
