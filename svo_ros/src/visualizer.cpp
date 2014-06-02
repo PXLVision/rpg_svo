@@ -161,7 +161,7 @@ void Visualizer::publishMinimal(
     pub_images_.publish(img_msg.toImageMsg());
   }
 
-  if(pub_pose_.getNumSubscribers() > 0)
+  if(pub_pose_.getNumSubscribers() > 0 && slam.stage() == FrameHandlerBase::STAGE_DEFAULT_FRAME)
   {
     Quaterniond q;
     Vector3d p;
@@ -298,8 +298,11 @@ void Visualizer::exportToDense(const FramePtr& frame)
     msg.min_depth = (float) min_z;
     msg.max_depth = (float) max_z;
 
-    Quaterniond q(frame->T_f_w_.inverse().rotation_matrix());
-    Vector3d p(frame->T_f_w_.inverse().translation());
+    // publish cam in world frame
+    SE3 T_world_from_cam(T_world_from_vision_*frame->T_f_w_.inverse());
+    Quaterniond q(T_world_from_cam.rotation_matrix());
+    Vector3d p(T_world_from_cam.translation());
+
     msg.pose.position.x = p[0];
     msg.pose.position.y = p[1];
     msg.pose.position.z = p[2];
